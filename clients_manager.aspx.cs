@@ -36,7 +36,7 @@ namespace Clients_Management
             adpt.Fill(ds);
             dt = ds.Tables[0];
             com.CommandType = CommandType.Text;
-            SqlCommandBuilder sb = new SqlCommandBuilder(adpt);
+            //SqlCommandBuilder sb = new SqlCommandBuilder(adpt);
             dt.PrimaryKey = new DataColumn[] { dt.Columns[0] };
             GridView2.DataSource = dt;
             GridView2.DataBind();
@@ -128,13 +128,8 @@ namespace Clients_Management
 
         protected void btn_Update_Click(object sender, EventArgs e)
         {
-            //con = new SqlConnection(@"Data Source=DESKTOP-0PAGHK2;Initial Catalog=client;Integrated Security=True");
-            //SqlCommand com = new SqlCommand(@"UPDATE[dbo].[clients]
-            //   SET[id] = '"+txtID.Text+"',[firstName] = '"+txtName.Text +"',[lastName] = '"+txtlName.Text+",[address] = '"+txtAdresse.Text+"',[city] = '"+txtcity.Text+"'
-            //  WHERE < Search Conditions,,> ('" + txtID.Text + "', '" + txtName.Text + "', '" + txtlName.Text + "', '" + txtAdresse.Text + "', '" + txtcity.Text + "')", con);
-            SqlCommand com = new SqlCommand("update clients SET[firstName] = '" + txtName.Text + "',[lastName] = '" + txtlName.Text + "',[address] = '" + txtAdresse.Text + "',[city] ='" + txtcity.Text + "' where [id]='" + txtID.Text + "'", con);
-
             con.Open();
+            SqlCommand com = new SqlCommand("update clients SET[firstName] = '" + txtName.Text + "',[lastName] = '" + txtlName.Text + "',[address] = '" + txtAdresse.Text + "',[city] ='" + txtcity.Text + "' where [id]='" + txtID.Text + "'", con);
             com.ExecuteNonQuery();
             Response.Write("Client Information Updated Successfully");
             Clear();
@@ -147,10 +142,11 @@ namespace Clients_Management
         protected void btn_Delete_Click(object sender, EventArgs e)
         {
             //con = new SqlConnection(@"Data Source=DESKTOP-0PAGHK2;Initial Catalog=client;Integrated Security=True");
-            con.Open();
-            SqlCommand com = new SqlCommand("delete from clients where [id]='" + txtID.Text + "'", con);
+            
             try
             {
+                con.Open();
+                SqlCommand com = new SqlCommand("delete from clients where [id]='" + txtID.Text + "'", con);
                 com.ExecuteNonQuery();
                 Response.Write("Client Information has been deleted");
                 Clear();
@@ -172,46 +168,26 @@ namespace Clients_Management
 
         protected void btn_Search_Click(object sender, EventArgs e)
         {
-            con.Open();
-            SqlCommand com = new SqlCommand("SELECT * FROM clients where city like '" + txtcity.Text + "%'", con);
-            adpt = new SqlDataAdapter(com);
-            ds = new DataSet();
-            adpt.Fill(ds);
-            DataView dv = dt.DefaultView;
+            
 
             //DataRow dr = dt.Rows.Find(txtcity.Text);
             //SqlDataAdapter adpt;
             //DataSet ds;
             //DataTable dt;
             //DataView dv = new DataView(ds.Tables["clients"]);
-            dv.RowFilter = "city like '" + txtcity.Text + "%' ";
+            
             try
             {
-                //if (dv.Table.Rows.Count > 0)
-                //{
-                   GridView2.DataSource = dv.ToTable();
-                   GridView2.DataBind();
+                con.Open();
+                //SqlCommand com = new SqlCommand("SELECT * FROM clients", con);
+                //adpt = new SqlDataAdapter(com);
+                //ds = new DataSet();
+                //adpt.Fill(ds);
+                DataView dv = dt.DefaultView;
+                dv.RowFilter = "city like '" + txtcity.Text + "%' ";
+                GridView2.DataSource = dv.ToTable();
+                GridView2.DataBind();
                 
-                //}
-                //txtID.Text = dr["id"].ToString();
-                //txtName.Text = dr["firstName"].ToString();
-                //txtlName.Text = dr["lastName"].ToString();
-                //txtAdresse.Text = dr["address"].ToString();
-                //txtcity.Text = dr["city"].ToString();
-
-                //SqlDataReader dreader = com.ExecuteReader();
-                //if (dreader.Read())
-                //{
-                //    txtName.Text = dreader[1].ToString();
-                //    txtlName.Text = dreader[2].ToString();
-                //    txtAdresse.Text = dreader[3].ToString();
-                //    txtcity.Text = dreader[4].ToString();
-                //}
-                //else
-                //{
-                //    Response.Write(" Not found");
-                //}
-                //dreader.Close();
             }
             catch (Exception x)
             {
@@ -223,6 +199,7 @@ namespace Clients_Management
                 Clear();
                 
             }
+
         }
     }
 }

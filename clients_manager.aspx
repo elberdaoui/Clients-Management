@@ -136,7 +136,7 @@
                     <asp:Button ID="btn_Add" class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none" runat="server" Text="Add Client" data-toggle="modal" data-target="#exampleModalTwo" OnClick="btn_Add_Click" />
                     <asp:Button ID="btn_Update" class="px-5 py-2 mx-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-yellow-500 hover:text-white focus:outline-none" runat="server" Text="Update" OnClick="btn_Update_Click" />
                     <asp:Button ID="btn_Delete" class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none" runat="server" Text="Delete" OnClick="btn_Delete_Click" />
-                    <asp:Button ID="btn_Search" class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none" runat="server" Text="Search" OnClick="btn_Search_Click" />
+                    <asp:Button ID="btn_Search" class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-green-500 hover:text-white focus:outline-none" runat="server" Text="Search/All" OnClick="btn_Search_Click" />
                 </td>
                 <td>&nbsp;</td>
             </tr>
